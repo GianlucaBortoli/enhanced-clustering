@@ -1,0 +1,77 @@
+\documentclass{sig-alternate-05-2015}
+\usepackage{subscript}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[lined,boxed,longend,ruled]{algorithm2e}
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+\SetKwProg{Fn}{def}{\string:}{end}
+\SetKwFunction{CompGrid}{Compute\_Grid}
+\SetKwFunction{CompTop}{Compute\_Topics}
+\SetKwFunction{CompComArea}{Compute\_intersection}
+\SetKwFunction{CompDiffArea}{Compute\_difference}
+\SetKwFunction{CrDT}{Create\_DataFrames}
+\SetStartEndCondition{ }{}{}%
+\SetKw{KwTo}{in}\SetKwFor{For}{for}{\string:}{end for}%
+\newcommand{\forcond}{$df$ \KwTo{$dist\_clust\_pages$}}
+\newcommand{\forRecDiff}{$map$ \KwTo{$commonAreas$}}
+\newcommand{\forRecCom}{$map$ \KwTo{$computedMaps$}}
+\AlgoDontDisplayBlockMarkers\SetAlgoNoEnd\SetAlgoNoLine%
+\graphicspath{ {./imgs/} }
+
+\begin{document}
+
+\title{Enhanced clustering}
+
+\numberofauthors{2}
+\author{
+    \alignauthor
+    Gianluca Bortoli\\
+           \affaddr{DISI\,-\,University of Trento}\\
+           \affaddr{Student id: 179816}\\
+           \email{gianluca.bortoli@studenti.unitn.it}
+    \alignauthor
+    Martin Brugnara\\
+           \affaddr{DISI\,-\,University of Trento}\\
+           \affaddr{Student id: 182904}\\
+           \email{martin.brugnara@unitn.it}
+    }
+\maketitle
+
+
+\begin{abstract}
+\end{abstract}
+
+
+\printccsdesc
+\keywords{Big data, Data mining, URL categorization, topic extraction, geolocalized URLs, Latent Dirichlet Allocation}
+
+
+\section{Introduction}
+% remove eventually
+\cite{*}
+
+\section{Related work}
+\section{Problem definition}
+\section{Solution}
+\section{Conclusions and future work}
+
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+
+\bibliographystyle{abbrv}
+\bibliography{biblio}% biblio.bib is the name of the Bibliography in this case
+
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+%
+% ACM needs 'a single self-contained file'!
+%
+
+\end{document}
