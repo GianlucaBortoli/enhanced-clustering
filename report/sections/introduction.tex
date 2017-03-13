@@ -1,0 +1,17 @@
+The clustering problem received a lot of attention in the data mining~\cite{fayyad1996advances}, statistics~\cite{tijms1994stochastic,banfield1993model} and machine learning literatures. Furthermore it has been exploited in many other disciplines.
+
+Generally speaking, the problem consists in grouping together data items that are ``similar'' to each other.
+The concept of similarity varies a lot in the different contexts it is applied.
+For example the Euclidean distance~(L2) can be used when dealing with continuous values, or the Jaccard similarity when dealing with generic sets of elements.
+% TODO: nonoostante cio' l'algoritmo e generale.
+Nevertheless, clustering can be also viewed as identifying the dense regions of the probability density of the data source~\cite{bradley1998scaling}.
+
+The literature suggests two approaches: iterative and hierarchical algorithms.
+The first strategy usually needs some parameters to be set and known in advance.
+For example the \emph{K-means}, which is one of the most popular and adopted algorithm,
+requires the number of cluster to be found~(\emph{K}).
+The latter can be implemented both in a top down (divisive) or a bottom up (agglomerative) manner.
+Initially, the divisive algorithm treats all data as a single big cluster and later splits it until every object is separated~\cite{kaufman2009finding}.
+On the contrary, the agglomerative starts considering each ``element'' as a \emph{singleton} (a cluster composed of one element).
+Next, the most similar clusters are collapsed together until only one big cluster remains.
+Implicitly the merging order defines a clear hierarchy among the intermediate representations.
