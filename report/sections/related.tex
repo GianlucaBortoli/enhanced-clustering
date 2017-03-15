@@ -1,0 +1,26 @@
+The most popular and simplest partitional algorithm is \textbf{k-means}~\cite{macqueen1967some}.
+Like every other solution belonging to this class, it requires the number of clusters to be found~($k$) to be known a-priori.
+Unfortunately, there exists no mathematical formula to compute such parameter in advance,
+requiring the test to be run multiple times with different values in order to find the best solution according to some criterion (\emph{e.g.} the Schwarz Criterion~\cite{schwarz1978estimating}).
+This algorithm is based on the notion of distance and it is usually employs the Euclidean one.
+The resulting division into clusters can be also seen as a lossy compression of the points towards the centroids, which are points identifying the clusters.
+The main idea behind the k-means consists in minimizing an objective function.
+Usually the Mean Squared Error~(MSE) is chosen, where the error is defined as the distance between each point and the centroid of the cluster it is assigned to.
+This process is iterative; initially $k$ points are identified to be the centroids,
+then all the points are assigned to the nearest centroid (locally minimazing the MSE)
+and finally the centroids are recomputed as the barycenter of the clusters.
+The procedure continues until the convergence of the centroids' locations.
+A noteworthy aspect is that the bootstrap phase, namely the initial centroids identification, highly influences the outcome.
+
+Different centroids usually lead to different results, since the algorithm is designed to find a local optimum.
+Several options for the bootstrap have been proposed like the one from Bradley and Fayyad~\cite{bradley1998refining}.
+They suggest to run the k-means $M$ times using any initial centroid selection strategy
+on $M$ different subsets of the initial data.
+After that, an optimal grouping of the $M \times k$ centroids identified in the previous runs has to be found.
+Given the small set size a brute force approach is a reasonable option.
+Finally the ``real'' k-means will use those centroids as the initial ones.
+
+Using a distance as a similarity measure implies that the clusters will have a spherical shape.
+It follows that the algorithm performs best when the input data have normally distributed features values.
+
+Despite these disadvantages, many variants and optimizations have been proposed both by the industrial and academic communities~\cite{kanungo2002efficient,likas2003global,elkan2003using}.

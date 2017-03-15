@@ -1,14 +1,20 @@
-The clustering problem received a lot of attention in the data mining~\cite{fayyad1996advances}, statistics~\cite{tijms1994stochastic,banfield1993model} and machine learning literatures. Furthermore it has been exploited in many other disciplines.
+The clustering problem consists in grouping together data items that are ``similar'' to each other such that the inter-group similarity is high, while the intra-group one is low.
 
-Generally speaking, the problem consists in grouping together data items that are ``similar'' to each other.
+This challenge has received a lot of attention over the years.
+According to Jane and K.~\cite{jain2010data}, the first specific study appeared in 1954~\cite{10.2307/2342679} and by now thousends of solutions have been proposed.
+
+Data clustering has been used in many different disciplines, such as
+data mining~\cite{fayyad1996advances}, statistics~\cite{tijms1994stochastic,banfield1993model} and machine learning.
+The most common usages aim to gain insight to data (underlying structure) and for summarizing it through cluster prototypes (compression).
+
 The concept of similarity varies a lot in the different contexts it can be applied.
 For example the Euclidean distance~(L2) can be used when dealing with continuous values or the Jaccard similarity index, which computes similarity for generic sets of elements.
 Nonetheless, the underlying algorithm is agnostic with respect to the similarity measure that is applied to compute a distance between the elements in the data.
 Clustering can be also viewed as identifying the dense regions of the probability density of the data source~\cite{bradley1998scaling}.
 
-The literature suggests two different approaches: \emph{iterative} and \emph{hierarchical} algorithms.
+The literature suggests two different approaches: \emph{partitional} and \emph{hierarchical}.
 
-The first strategy usually needs some parameters to be set and known in advance.
+The first strategy needs some parameters to be set and known in advance.
 For example the \emph{k-means}, which is one of the most popular and adopted algorithm,
 requires the number of cluster to be found~(\emph{K}).
 
@@ -19,15 +25,16 @@ Next, the most similar clusters are collapsed together until only one big cluste
 Implicitly the merging order defines a clear hierarchy among the intermediate representations (dendrogram).
 
 Clearly, both the above mentioned approaches to the clustering problem have their disadvantages.
-The iterative methods require prior knowledge on the data distribution, while the hierarchical ones imply the user interaction to decide the dendrogram's cut height.
-A solution that does not suffer from those is still an open challenge.
+The partitional methods require prior knowledge on the data distribution, while the hierarchical ones imply the user interaction to decide the dendrogram's cut height.
+For a complete list of the various clustering tequnique flavours refer to Jan \emph{et al.} review~\cite{jain2010data}.
+However, a solution that does not suffer from those is still an open challenge.
 
 In this work we propose a completely autonomous system which merges the two strategies to overcome their weaknesses, meaning that it satisfies the following \emph{Data Mining Desiderata}:
 \begin{enumerate}
     \item \textbf{streaming}: require one scan of the database, since reading from secondary memory is still the most costly I/O operation.
-    Moreover the analysis can be stopped and restarted without having to re-process the whole data (``stop and resume" support).
+    Moreover the analysis can be stopped and restarted without having to re-process the whole data (``stop and resume'' support).
     This property adds the capability to incorporate additional data with existing model efficiently (incremental computation).
-    \item \textbf{on-line ``anytime" behaviour}: a ``best" answer is always available at any time during the computation phase.
+    \item \textbf{on-line ``anytime'' behaviour}: a ``best'' answer is always available at any time during the computation phase.
     \item \textbf{limited memory}: the tool must work within the bounds of a given amount of main memory (RAM).
     % TODO: vorrei che fosse anche parallelizzabile
 \end{enumerate}
