@@ -24,3 +24,22 @@ Using a distance as a similarity measure implies that the clusters will have a s
 It follows that the algorithm performs best when the input data have normally distributed features values.
 
 Despite these disadvantages, many variants and optimizations have been proposed both by the industrial and academic communities~\cite{kanungo2002efficient,likas2003global,elkan2003using}.
+
+
+Another important clustering algorithm is the Density-based spatial clustering of applications with noise, more commonly known as \textbf{DBSCAN}~\cite{ester1996density}.
+As the name suggests, it is a density-based approach to the problem,
+meaning that it groups together points with many others in the neighborhood
+and penalizes points in low density areas (outliers).
+It relies on two user provided parameters namely \emph{minPts} and $\epsilon$.
+The \emph{minPts} variable represents the minimum number of points that must lie in a circle of radius $\epsilon$~(neighborhood).
+
+DBSCAN exploits the \emph{density-reachability} to define three classes of points:
+\begin{itemize}
+    \item \emph{core}: set of points that have at least \emph{minPts} neighbors.
+    \item \emph{reachable}:
+        set of points that are in the neighborhood of a \emph{core} point,
+        but are not \emph{core} points themselves.
+    \item \emph{outlier}:
+        set of points that have less than \emph{minPts} points in their neighborhood.
+\end{itemize}
+
