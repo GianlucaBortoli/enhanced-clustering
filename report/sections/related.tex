@@ -23,7 +23,7 @@ Finally the ``real'' k-means will use those centroids as the initial ones.
 Using a distance as a similarity measure implies that the clusters will have a spherical shape.
 It follows that the algorithm performs best when the input data have features values that are normally distributed.
 
-Despite these disadvantages, many variants and optimizations have been proposed both by the industrial and academic communities~\cite{kanungo2002efficient,likas2003global,elkan2003using}.
+Despite these disadvantages, many variants and optimizations have been proposed both by the industrial and academic communities~\cite{kanungo2002efficient,likas2003global,elkan2003using}.\\
 
 
 Another important clustering algorithm is the ``Density-based spatial clustering of applications with noise'', more commonly known as \textbf{DBSCAN}~\cite{ester1996density}.
@@ -54,4 +54,24 @@ Furthermore, it tries to detect the clusters with different shapes and sizes tha
 
 As opposed to k-means, DBSCAN is able to find arbitrarly-shaped clusters, since it does not employ a distance to measure similarity.
 Moreover, the notion of density-reachability is not symmetric.
-Hence, this is the key property that allows to find clusters with any shape rather than only ones normally distributed.
+Hence, this is the key property that allows to find clusters with any shape rather than only ones normally distributed.\\
+
+
+A predictable evolution are the mixed approaches, that try to combine the advantages of both the partitional and the hierarchical models to overcome their weaknesses.
+One of the major applications to the DBMSs is the one proposed by Bradley, Fayyad and Reina --- \textbf{BFR}~\cite{bradley1998scaling}.
+It adresses the problem of clustering very large databases that do not fit in main memory.
+Hence, scanning data at each iteration step is extremely costly; this can be generalized to scenarios where random reading operations are costly or not possible (\emph{e.g.} streaming data, hard disk, non materialized views).
+The main idea behind BFR is to use sufficent statistics~\cite{fisher1922mathematical} to represent groups of points.
+
+In more detail, it has to be initialized with $k$ points, which will be the intial centroids;
+after that, it fetches data filling the preallocated RAM buffer.
+At this point it updates the internal model (\emph{i.e.} it runs a classic k-means on the buffered data)
+and classifies the singleton items in the following sets to perform data compression:
+\begin{itemize}
+	\item \emph{discard}: points that can be discarded updating the sufficent statistics.
+	\item \emph{compression}: non discarded points that do not belong to any of the $k$ clusters,
+		but can be summarized and reppresend by other sufficient statistics.
+	\item \emph{retained}: points that cannot be summarized and are kept as-is in the buffer.
+\end{itemize}
+
+
