@@ -43,3 +43,14 @@ This algorithm exploits the \emph{density-reachability} to define three classes 
         set of points that have less than \emph{minPts} points in their neighborhood.
 \end{itemize}
 
+As happens with the k-means, DBSCAN has the disadvantage of requiring its parameters \emph{minPts} and $\epsilon$ to be known in advance.
+One possible solution is to let a domain expert deal with it, providing sensible parameters based on his prior and deep knowledge of the dataset.
+
+Moreover, some techniques for estimating such parameters have been proposed in the literature, resulting in an extended version of the algorithm known as EDBSCAN~\cite{elbatta2013dynamic, ram2009enhanced}.
+EDBSCAN improves the handling of local density variation that exists within the clusters and dynamically chooses the best \emph{minPts} and $\epsilon$ values for the current run.
+For good clustering results, such significant density variation might be allowed within a cluster if the objective is not a large number of smaller unimportant clusters.
+Furthermore, it tries to detect the clusters with different shapes and sizes that differ in local density.
+
+As opposed to k-means, DBSCAN is able to find arbitrarly-shaped clusters, since it does not employ a distance to measure similarity.
+Moreover, the notion of density-reachability is not symmetric.
+Hence, this is the key property that allows to find clusters with any shape rather than only ones normally distribution.   
