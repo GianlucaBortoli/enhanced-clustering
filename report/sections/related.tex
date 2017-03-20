@@ -26,7 +26,7 @@ It follows that the algorithm performs best when the input data have features va
 Despite these disadvantages, many variants and optimizations have been proposed both by the industrial and academic communities~\cite{kanungo2002efficient,likas2003global,elkan2003using}.
 
 
-Another important clustering algorithm is the Density-based spatial clustering of applications with noise, more commonly known as \textbf{DBSCAN}~\cite{ester1996density}.
+Another important clustering algorithm is the ``Density-based spatial clustering of applications with noise'', more commonly known as \textbf{DBSCAN}~\cite{ester1996density}.
 As the name suggests, it is a density-based approach to the clustering problem,
 meaning that it groups together points with many others in the neighborhood
 and penalizes the ones in low density areas (outliers).
@@ -45,12 +45,13 @@ This algorithm exploits the \emph{density-reachability} to define three classes 
 
 As happens with the k-means, DBSCAN has the disadvantage of requiring its parameters \emph{minPts} and $\epsilon$ to be known in advance.
 One possible solution is to let a domain expert deal with it, providing sensible parameters based on his prior and deep knowledge of the dataset.
+Moreover, DBSCAN lacks in flexibility since it uses a single ``is dense'' threshold derived from the two input parameters.
 
-Moreover, some techniques for estimating such parameters have been proposed in the literature, resulting in an extended version of the algorithm known as EDBSCAN~\cite{elbatta2013dynamic, ram2009enhanced}.
-EDBSCAN improves the handling of local density variation that exists within the clusters and dynamically chooses the best \emph{minPts} and $\epsilon$ values for the current run.
+Some techniques for estimating such parameters have been proposed in the literature, resulting in an extended version of the algorithm known as EDBSCAN~\cite{elbatta2013dynamic, ram2009enhanced}.
+It improves the handling of local density variation that exists within the clusters and dynamically chooses the best \emph{minPts} and $\epsilon$ values for the current run.
 For good clustering results, such significant density variation might be allowed within a cluster if the objective is not a large number of smaller unimportant clusters.
 Furthermore, it tries to detect the clusters with different shapes and sizes that differ in local density.
 
 As opposed to k-means, DBSCAN is able to find arbitrarly-shaped clusters, since it does not employ a distance to measure similarity.
 Moreover, the notion of density-reachability is not symmetric.
-Hence, this is the key property that allows to find clusters with any shape rather than only ones normally distribution.   
+Hence, this is the key property that allows to find clusters with any shape rather than only ones normally distributed.

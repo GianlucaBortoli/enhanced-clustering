@@ -1,12 +1,9 @@
 PROJECT=report
-TEX=pdflatex
+TEX=latexmk
 BUILDTEX=$(TEX) $(PROJECT).tex
 BIBTEX=bibtex
 
 all:
-	$(BUILDTEX)
-	$(BIBTEX) $(PROJECT)
-	$(BIBTEX) $(PROJECT)
 	$(BUILDTEX)
 
 clean:
