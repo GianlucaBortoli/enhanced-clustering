@@ -1,9 +1,9 @@
 The most popular and simplest partitional algorithm is \textbf{k-means}~\cite{macqueen1967some}.
-Like every other solution belonging to this class, it requires the number of clusters to be found~($k$) to be known a-priori.
+Like every other solution belonging to this class, it requires the objective number of clusters~($k$) to be known a-priori.
 Unfortunately, there exists no mathematical formula to compute such parameter in advance,
 requiring the test to be run multiple times with different values in order to find the best solution according to some criterion (\emph{e.g.} the Schwarz Criterion~\cite{schwarz1978estimating}).
 This algorithm is based on the notion of distance and it is usually employs the Euclidean one.
-The resulting division into clusters can be also seen as a lossy compression of the points towards the centroids, which are points identifying the clusters.
+The resulting division into clusters can be also seen as a lossy compression of the points towards the centroids identifying the clusters.
 The main idea behind the k-means consists in minimizing an objective function.
 Usually the Mean Squared Error~(MSE) is chosen, where the error is defined as the distance between each point and the centroid of the cluster it is assigned to.
 This process is iterative; initially $k$ points are identified to be the centroids,
@@ -14,26 +14,26 @@ A noteworthy aspect is that the bootstrap phase, namely the initial centroids id
 
 Different centroids usually lead to different results, since the algorithm is designed to find a local optimum.
 Several options for the bootstrap have been proposed like the one from Bradley and Fayyad~\cite{bradley1998refining}.
-They suggest to run the k-means $M$ times using any initial centroid selection strategy
+They suggest to run the k-means algorithm $M$ times using any initial centroid selection strategy
 on $M$ different subsets of the initial data.
 After that, an optimal grouping of the $M \times k$ centroids identified in the previous runs has to be found.
-Given the small set size a brute force approach is a reasonable option.
+Given the small set size, a brute force approach is a reasonable option.
 Finally the ``real'' k-means will use those centroids as the initial ones.
 
 Using a distance as a similarity measure implies that the clusters will have a spherical shape.
-It follows that the algorithm performs best when the input data have normally distributed features values.
+It follows that the algorithm performs best when the input data have features values that are normally distributed.
 
 Despite these disadvantages, many variants and optimizations have been proposed both by the industrial and academic communities~\cite{kanungo2002efficient,likas2003global,elkan2003using}.
 
 
 Another important clustering algorithm is the Density-based spatial clustering of applications with noise, more commonly known as \textbf{DBSCAN}~\cite{ester1996density}.
-As the name suggests, it is a density-based approach to the problem,
+As the name suggests, it is a density-based approach to the clustering problem,
 meaning that it groups together points with many others in the neighborhood
-and penalizes points in low density areas (outliers).
-It relies on two user provided parameters namely \emph{minPts} and $\epsilon$.
+and penalizes the ones in low density areas (outliers).
+The original version of DBSCAN relies on two user-provided parameters, namely \emph{minPts} and $\epsilon$.
 The \emph{minPts} variable represents the minimum number of points that must lie in a circle of radius $\epsilon$~(neighborhood).
 
-DBSCAN exploits the \emph{density-reachability} to define three classes of points:
+This algorithm exploits the \emph{density-reachability} to define three classes of points:
 \begin{itemize}
     \item \emph{core}: set of points that have at least \emph{minPts} neighbors.
     \item \emph{reachable}:
