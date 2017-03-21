@@ -57,21 +57,28 @@ Moreover, the notion of density-reachability is not symmetric.
 Hence, this is the key property that allows to find clusters with any shape rather than only ones normally distributed.\\
 
 
-A predictable evolution are the mixed approaches, that try to combine the advantages of both the partitional and the hierarchical models to overcome their weaknesses.
+A natural evolution are the mixed approaches that try to combine the advantages of both the partitional and the hierarchical models to overcome their weaknesses.
 One of the major applications to the DBMSs is the one proposed by Bradley, Fayyad and Reina --- \textbf{BFR}~\cite{bradley1998scaling}.
-It adresses the problem of clustering very large databases that do not fit in main memory.
-Hence, scanning data at each iteration step is extremely costly; this can be generalized to scenarios where random reading operations are costly or not possible (\emph{e.g.} streaming data, hard disk, non materialized views).
+It adresses the problem of clustering very large databases that do not fit in main memory, where scanning data at each iteration step is extremely costly. This can be generalized to scenarios where random reading operations are costly or not possible (\emph{e.g.} streaming data, hard disk, non-materialized views).
 The main idea behind BFR is to use sufficent statistics~\cite{fisher1922mathematical} to represent groups of points.
 
-In more detail, it has to be initialized with $k$ points, which will be the intial centroids;
+In more detail, first the algorithm has to be initialized with $k$ points, which are designated as the intial centroids;
 after that, it fetches data filling the preallocated RAM buffer.
-At this point it updates the internal model (\emph{i.e.} it runs a classic k-means on the buffered data)
-and classifies the singleton items in the following sets to perform data compression:
-\begin{itemize}
-	\item \emph{discard}: points that can be discarded updating the sufficent statistics.
-	\item \emph{compression}: non discarded points that do not belong to any of the $k$ clusters,
+At this point it updates the internal model (\emph{i.e.} it runs a classic k-means on the buffered data) and classifies the 
+singleton items into the following sets in order to perform \emph{data compression}:
+\begin{enumerate}
+	\item \emph{discard}\label{ds}: points that can be discarded after updating the sufficent statistics.
+	\item \emph{compression}\label{cs}: non discarded points that do not belong to any of the $k$ clusters,
 		but can be summarized and reppresend by other sufficient statistics.
-	\item \emph{retained}: points that cannot be summarized and are kept as-is in the buffer.
-\end{itemize}
+	\item \emph{retained}: points that cannot be summarized in any of the two previous ways are
+        kept as-is in the buffer.
+\end{enumerate}
+This data compression procedure is used to eliminate data points that are not useful anymore from main memory, thus allowing
+the buffer continuously to accomodate new data.
+To achive this, \emph{primary} data compression removes data points that are unlikely to change cluster membership in future
+iterations thresholding the Mahalanobis radius~\cite{duda60} around a candidate centroid and summarizing all the items within that area (see Point \ref{ds}).
+Moreover, \emph{secondary} data compression aims at finding sub-clusters of points that are very close to each other that
+were not compressed during the primary step (see Point \ref{cs}).
 
-
+However, the BFR algorithm suffers from the cluster's shape issue as the k-means. Therefore, this approach is able to deal only with
+data that follows a Gaussian distribution.
