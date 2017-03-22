@@ -183,3 +183,5 @@ TSWLatexianTemp*
 *.sw*
 ~*
 *~
+
+.DS_Store
