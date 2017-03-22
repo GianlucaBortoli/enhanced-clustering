@@ -1,0 +1,25 @@
+Clustering is the task of gathering toghether items in a way that elements belonging
+to the same group (the \emph{cluster}) are more similar to each other other than the ones
+assigned to the other clusters.\\
+More formally, the input is composed of:
+\begin{itemize}
+    \item $X = \{x_0, \dots ,x_n\}$, the initial set of elements.
+    \item $d: X \times X \to \mathbb{R}$, a \emph{metric} measuring the similarity.
+\end{itemize}
+The final goal is to find the cluster configuration
+\begin{equation*}
+    C = \left\{ C_0, \dots , C_m \right\}
+\end{equation*}
+partitioning $X$
+into $m$ clusters optimizing the following multi-objective function:\\
+
+$f\left(2^X\right) =$
+\begin{math}
+    \left\{
+        \begin{array}{l}
+            \text{minimize the intra-cluster distance}
+            \\
+            \text{maximize the inter-cluster distance}
+        \end{array}
+    \right.
+\end{math}
