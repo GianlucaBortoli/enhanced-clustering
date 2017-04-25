@@ -65,9 +65,37 @@ The 0.35 and the 0.7 values allows the density in the mean value of the gaussian
 to influence more the size of the ellipse rather than its standard deviation ($std$). Finally, 5 is
 an overall scaling factor useful to allow the comparison of cluster with very different densities.
 
+From an higher point ov view, Equation \ref{ellipse_params} represents the \emph{estimated influence area} 
+for every cluster. As the name suggests, this depicts (also visually) the area of influence a cluster
+has on all the others. If two clusters' estimated influence area has a non-empty intersection, this
+means that they can be collapsed and become a single bigger cluster.
+
+%TODO: metti qui immagine di due cluster che si fondono per l'area di influenza
+
 A noteworthy aspect is that all the aforementioned factors used inside Equation \ref{ellipse_params} have
 been set after several tuning stages through empirical tests using many datasets with different
 cluster properties.
+
+Nevertheless, representing the clusters my means of sufficient statistics allows to implement an $O(1)$
+merging procedure. More in detail, every cluster is internally represented as a touple with the
+following imformation:
+\begin{equation*}
+    \left(\left[\sum_{p}^{|C|} feat[0],\dots,\sum_{p}^{|C|} feat[n]\right],|C|\right)
+\end{equation*}
+In an 2-dimensional euclidean space, this metadata result in a list containing the the sum of all the
+points' coordinates among the 2 axes and the number of points within the cluster taken into consideration.
+This structure contains the least possible information to compute the centroid's coordinates as the
+barycenter of that particolar cluster.  
+
+Moreover, this merging strategy enables all the \emph{Data Mining Desiderata} described in Section 
+\ref{intro}. It makes use of sufficient statistics to internally represent the clusters, thus 
+requiring an overall amount of memory that is linear in the number of peaks ($O(k)$, \emph{limited memory}
+property). Furthermore, the \emph{online} behaviour is guaranteed by default, since the centroid
+bootstrap and merging procedure always returns a solution at any point in time. Finally, it allows
+to deal with \emph{straming} data thanks both to its linear memory consumption and to its ability to
+work with chunks of data by default, propagating all the sufficient statistics needed to update the 
+centroids from one iteration to another. This also guarantees that if the computation is stopped
+it can restart without having to re-process everything from scratch.
 
 
 \subsection*{Applications}
