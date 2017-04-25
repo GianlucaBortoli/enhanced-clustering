@@ -36,7 +36,7 @@ def kmeans(dataset, k=None, centroids=None, e=0.01, max_iter=20, sbs=False):
     # centroids: {cid -> (x,y)}
 
     for z in xrange(max_iter):
-        logging.info("[%d] Assigning points to centroids" % z)
+        logging.debug("[%d] Assigning points to centroids" % z)
 
         # points -> (x,y,cid)
         clusters = map(lambda (x, y): (x, y, min(
@@ -44,18 +44,18 @@ def kmeans(dataset, k=None, centroids=None, e=0.01, max_iter=20, sbs=False):
                     centroids.iteritems()),
                 key=lambda (ci, distance): distance)[0]), dataset)
 
-        logging.info("[%d] Recomputing centroids" % z)
+        logging.debug("[%d] Recomputing centroids" % z)
         cstats = dict([(cid, (0, 0, 0)) for cid in centroids.keys()])
         # reduce by key (sufficient statistics)
         for (x, y, c) in clusters:
             (cx, cy, n) = cstats.get(c)
             cstats[c] = (cx+x, cy+y, n+1)
 
-        logging.info("[%d] Updating centroids" % z)
+        logging.debug("[%d] Updating centroids" % z)
         new_centroids = dict((c, (x/n, y/n))
                              for (c, (x, y, n)) in cstats.iteritems() if n > 0)
 
-        logging.info("[%d] Checking stop condition" % z)
+        logging.debug("[%d] Checking stop condition" % z)
         stop = all(map(lambda (c, (x, y)): dist(centroids.get(c), (x, y)) < e,
                    new_centroids.iteritems()))
 

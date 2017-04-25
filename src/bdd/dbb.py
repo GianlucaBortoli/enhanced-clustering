@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 
-import logging
+import logging as log
 from itertools import groupby
 from math import fabs, sqrt
 from operator import itemgetter as iget
@@ -80,12 +80,12 @@ def find_merges(ellipses):
     merges = list()
     for i in xrange(len(ellipses)):
         (ic, ((ixmean, _, _), (iymean, _, _))) = ellipses[i]
-        iw, ih = get_EIA(ellipses[i], SF)
+        iw, ih = get_EIA(ellipses[i])
         ie = ellipse_polyline(ixmean, iymean, iw/2.0, ih/2.0)
 
         for j in xrange(i):
             (jc, ((jxmean, _, _), (jymean, _, _))) = ellipses[j]
-            jw, jh = get_EIA(ellipses[j], SF)
+            jw, jh = get_EIA(ellipses[j])
             je = ellipse_polyline(jxmean, jymean, jw/2.0, jh/2.0)
 
             if ellipse_intersect(ie, je):
@@ -102,9 +102,10 @@ def merge(cstats, merges):
         centroids, cstats
     """
 
-    logging.info("merges: ", merges)
+    log.info("merges: %s" % merges)
 
     def find_current_group(c):
+        log.debug('find group %s', c)
         while not cstats[c]:
             c = merged[c]
         return c

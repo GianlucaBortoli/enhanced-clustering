@@ -5,9 +5,12 @@ import argparse
 import logging as log
 import sys
 
-from bdd import compute_density, find_ellipses, find_merges, merge
+from dbb import compute_density, find_ellipses, find_merges, merge
 from detect_peaks import detect_peaks
+from graphics import plot_cool_figure, plot_density_ellipses
 from kmeans import kmeans
+
+log.basicConfig(level=log.INFO)
 
 
 def main():
@@ -15,7 +18,7 @@ def main():
             description='Density Based [k-means] Bootstrap method demo')
     parser.add_argument('-d', '--dataset', default='dataset.txt',
                         help='Dataset to analyze')
-    parser.add_argument('-k', '--kmeans_maxiter', default=20,
+    parser.add_argument('-k', '--kmeans_maxiter', default=10,
                         help='k-means max iterations')
     parser.add_argument('-b', '--dbb_maxiter', default=5,
                         help='DBB max iterations')
@@ -36,20 +39,26 @@ def main():
 
     centroids = [(hx[0][x], hy[0][y]) for x in px for y in py]
 
-    # TODO: plot initial status (cool figure)
+    # Compute pic borders once for all
+    picbound = (min(xs), max(xs), min(ys), max(ys))
 
+    # Top bar
+    plot_cool_figure(xs, ys, hx, hy, centroids, px, py, args.dataset, picbound)
+
+    j = 0
     for i in xrange(args.dbb_maxiter):
         for (clusters, centroids, cstats) in kmeans(
                 points, centroids=centroids,
-                max_iteration=args.kmeans_maxiter, sbs=True):
-            log.info(".", end="")
+                max_iter=args.kmeans_maxiter, sbs=True):
+            log.info('DBB iter: %d. K-Means iter: %d', i, j)
+            j += 1
 
-            ellipses = find_ellipses(centroids, clusters)
-#            plot_density_ellipses(ellipses)
-            merges = find_merges(ellipses)
-            if not merges:
-                break
-            centroids = merge(cstats, merges)
+        ellipses = find_ellipses(centroids, clusters)
+        plot_density_ellipses(xs, ys, ellipses, args.dataset, i, picbound)
+        merges = find_merges(ellipses)
+        if not merges:
+            break
+        centroids = merge(cstats, merges)
 
 
 if __name__ == '__main__':
