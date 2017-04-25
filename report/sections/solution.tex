@@ -1,0 +1,46 @@
+This work consists in solving the two main problems of "k-means"-like 
+algorithms described in Section \ref{related} and \ref{problem_definition}:
+choosing the $k$ parameter and placing the $k$ initial centroids.
+The only assumption is that the dataset is generated from one or more gaussian
+disitributions.
+
+
+\subsection*{The choice of $k$}
+The most common scenario does not involve a domain expert. In this way there is 
+no prior knowledge that can be used to guess a proper and reasonable value for $k$.
+The main idea behind the solution proposed in this work is that of exploiting density
+analysis to get an initial estimate of the number of clusters in the data.
+
+More formally, a \emph{peak detection} procedure is used to retrieve all the local
+maxima in the density function for each feature\footnote{This is equivalent to finding 
+all the local maxima in the density functions for each axis, if the item considered is
+a point in an n-dimensional euclidean space.} of the items in the dataset. In this way,
+a peak is defined as a data sample that is either larger than its two neighboring samples.
+This results in a list of peaks for each feature space and finally a n-dimensional grid
+matching every possible peack among all the features available is created.
+In this way, the worst-case scenario is taken into account, allowing this approach not
+to miss any potential centroid in the whole dataset\footnote{This approach produces an 
+over-estimation of the real number of centroids, including also possible false-negatives.}.
+% TODO: inserisci figura che fa vedere sia come si crea la griglia di picchi e della
+%       funzione di densità su tutti gli assi
+
+% TODO: pseudocodice di come creiamo questa griglia
+Moreover, among all the potential peaks created, only those which have at least one data
+item assigned after a run of the k-means are kept. This allows to discard all the 
+false-positives that were found creating all the possible touples in all the feature spaces.
+Furthermore, it represents the refinement step for the algorithm.
+
+Finally, the number of items in this grid represents the value for the $k$ parameter.
+
+
+\subsection*{Initial centroids bootstrap}
+The other important phase is to find a good positioning of the $k$ initial centroids.
+
+
+
+\subsection*{Applications}
+The solutions presented in this work can have two main applications. On the one hand,
+this procedure can be used as a bootstrapping phase for a  "k-means"-like algorithm. 
+On the other, it can be integrated with other partitional clustering algorithms to
+refine the local solution every certain number of iterations, allowing the system as a
+whole to find increasingly better clusters.

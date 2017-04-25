@@ -15,18 +15,17 @@
 \SetKwFunction{CompComArea}{Compute\_intersection}
 \SetKwFunction{CompDiffArea}{Compute\_difference}
 \SetKwFunction{CrDT}{Create\_DataFrames}
-\SetStartEndCondition{ }{}{}%
-\SetKw{KwTo}{in}\SetKwFor{For}{for}{\string:}{end for}%
+\SetStartEndCondition{ }{}{}
+\SetKw{KwTo}{in}\SetKwFor{For}{for}{\string:}{end for}
 \newcommand{\forcond}{$df$ \KwTo{$dist\_clust\_pages$}}
 \newcommand{\forRecDiff}{$map$ \KwTo{$commonAreas$}}
 \newcommand{\forRecCom}{$map$ \KwTo{$computedMaps$}}
-\AlgoDontDisplayBlockMarkers\SetAlgoNoEnd\SetAlgoNoLine%
+\AlgoDontDisplayBlockMarkers\SetAlgoNoEnd\SetAlgoNoLine
 \graphicspath{ {./imgs/} }
 
 \begin{document}
 
-\title{Enhanced clustering}
-% CPU enabled, streaming, adaptive clustering algorithm
+\title{DBB: Density Based [k-means] Bootstrap}
 
 \numberofauthors{2}
 \author{
@@ -59,10 +58,12 @@
 \input{sections/related.tex}
 \section{Problem definition}
 \input{sections/problem.tex}
-\subsection*{Challenges}
-\input{sections/challenges.tex}
 \section{Solution}
+\input{sections/solution.tex}
+\section{Valudation and experiments}
+\input{sections/experiments.tex}
 \section{Conclusions and future work}
+\input{sections/conclusion.tex}
 
 % remove eventually
 % \cite{*}
