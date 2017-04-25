@@ -1,3 +1,4 @@
+\label{problem_definition}
 Clustering is the task of gathering items in a way that elements belonging
 to the same group (the \emph{cluster}) are more similar to each other other than the ones
 assigned to the others.\\
@@ -19,3 +20,59 @@ partitioning $X$ into $m$ clusters, maximizing the intra-cluster distance
         \sum_{i,j}^{|c|}
             d(c_i,c_j)
 \end{equation}
+
+
+\subsection*{Challenges}
+The concept of clustering is simple and powerful; moreover, its versatility
+and generality are its greatness and at the same time source of many difficulties.
+%% Metrics identification
+Given the only strict requirement to be the definition of a metric over the
+domain of $X$, clustering is applied to a wide variety of problems.
+Clearly, each domain offers different optimization opportunities and
+particular challenges.
+In particular, the choice of the metric heavily influences the final outcome quality.
+As a result even the medical~\cite{siless2013comparison}, the mechanical
+engineering~\cite{wilding2011clustering} and the mobile networks~\cite{cheng2009stability}
+literatures features different studies that address this particular challenge
+suggesting highly specialized distance functions.
+%% Inter/Intra cluster distance measure
+Once the proper metric is identified, the following huge influencing factors
+are the mathematical definitions of ``intra-cluster'' and ``inter-cluster''
+distances. They vary a lot in the different implementation leading to
+completely different clustering configurations.
+For example, when performing agglomerative clustering three methods
+are widely used to define the distance between two clusters:
+average, minimum, and maximum distance.
+The average approach uses the barycenters, while the minimum (maximum)
+relies upon the minimal (maximal) distance between any two points
+belonging to a different clusters.
+
+
+\subsection*{Choosing the $k$ parameter}
+The first main issue of "k-means"-like described in Section \ref{related} is the choice
+of the number of clusters the dataset has to be divided into.
+
+The original k-means does not address this problem at all. Thus, some heuristic has to
+be applied. One possibility is to have a deep knowledge of the structure underlying the
+dataset, thus possibly knowing the target number of groups. On the other hand, especially 
+in exploratory data analysis, the value for the $k$ parameter cannot be known in advance.
+Hence, the most common solution is to run the algorithm with increasing values of $k$ and
+finally keeping the parameter that produces the best-quality clusters.
+
+Choosing the right value for this parameter is crucial, since a wrong value for $k$ may
+instruct the algorithm to collapse entities that are actually very far from each other.
+
+
+\subsection*{Positioning the initial centroids}
+Given that an optimal value for $k$, the other big problem is how to position the initial
+$k$ centroids.
+
+Given enough time, the k-means algorithm will always converge. However this may be to a local 
+minimum. This is highly dependent on the initialization of the centroids. This boostrapping
+phase can be addressed in various ways. For example, the \emph{scikit learn} Python library 
+by default uses an approach that positions the initial centroids to be (generally) distant
+from each other. This procedure provides provably better results than using a random 
+one~\cite{arthur2007k}.
+
+Using a proper and efficient boostrapping heuristic is very important, since misplacing 
+the initial centroids does not allow the algorithm to find the real cluster in the data.
