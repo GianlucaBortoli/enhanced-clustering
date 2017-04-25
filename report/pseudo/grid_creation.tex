@@ -1,22 +1,21 @@
 \begin{algorithm}[h]
- \KwIn{xs array: points'x values}
- \KwIn{ys array: points'y values}
- \KwResult{array: initial centroids}
+ \KwIn{xs, points'x values}
+ \KwIn{ys, points'y values}
+ \KwResult{array, initial centroids}
 
- hx = computeMarginalDensity(xs)\;
- hy = computeMarginalDensity(ys)\;
+ hx = computeMarginalDensity (xs)\;
+ hy = computeMarginalDensity (ys)\;
 
- px = detectPeaks(hx)\;
- py = detectPeaks(hy)\;
+ px = detectPeaks (hx)\;
+ py = detectPeaks (hy)\;
 
- centroids := []\;
- \For{i in px}{
-    \For{j in py}{
+ centroids = []\;
+ \For{i $\in$ px}{
+    \For{j $\in$ py}{
         centroids += (hx.x[i], hy.x[j])\;
     }
  }
 % return [(hx[x], hy[y]) for x in px for y in py]
  \KwRet{centroids}
- \label{alg:grid_creation}
- \caption{Initial centroids identification}
+ \caption{Initial centroids identification}\label{alg:grid_creation}
 \end{algorithm}

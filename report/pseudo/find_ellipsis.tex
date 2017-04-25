@@ -1,0 +1,27 @@
+\begin{algorithm}[h]
+    \KwIn{centroids, [(centroidId,x,y)]}
+    \KwIn{clusters, [\{id: [(x, y)]\}]}
+    \KwResult{ellipses}
+
+    cDesnity = {}\;
+    $dx$ = $dy$ = []\;
+    \For{cluster $\in$ clusters}{
+        $(x_{\mu}, x_{\sigma})$ = normFit (cluster.x)\;
+        $(y_{\mu}, y_{\sigma})$ = normFit (cluster.y)\;
+
+        $dx$ += px = normPDF $(x_{\mu}, x_{\mu}, x_{\sigma})$\;
+        $dy$ += py = normPDF $(y_{\mu}, y_{\mu}, y_{\sigma})$\;
+
+        cDensity[cluster.id] = $((x_{\mu}, x_{\sigma}, px), (y_{\mu}, y_{\sigma}, py))$\;
+    }
+
+    ellipses = []\;
+    \For{$(c, ((x_x, x_y, x_p), (y_x, y_y, y_p))) \in$ cDensity}{
+        ellipses += $(c$,\\
+            $((x_x, x_y, (x_p - dx_{\mu})/dx_{\sigma})$, \\
+            $(y_x, y_y,  (y_p - dy_{\mu})/dy_{\sigma})))$\;
+    }
+
+    \KwRet{ellipses}
+    \caption{Compute Estimated Influence Area}\label{alg:find_ellipses}
+\end{algorithm}
