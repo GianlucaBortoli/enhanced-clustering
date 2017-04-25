@@ -1,0 +1,43 @@
+\begin{algorithm}[h]
+    \KwIn{ellipses}
+    \KwIn{cstats, \{id: (xsum, ysum, n)\}}
+    \KwResult{centroids}
+
+~\\
+    // Fing merges
+    merges = []
+    \For{$e_0, e_1 \in ellipses$}{
+        // Compute $a,b$ ellipse paramteres (Eq~\ref{ellipse_params})\\
+        $eia_0$ = computeEIA ($e_0$)\;
+        $eia_1$ = computeEIA ($e_1$)\;
+
+        \If{$Ellipse(e_0, eia_0) \cap Ellipse(e_1, eia_1) \neq \varnothing$}{
+            merges += $(e_0, e_1)$\;
+        }
+    }
+
+~\\
+    // Apply merges
+    merged = {}\;
+    \For{($e_0, e_1) \in merges$}{
+        $e_0$ = findCurrentIdIfMerged ($e_0$, merged)\;
+        $e_1$ = findCurrentIdIfMerged ($e_1$, merged)\;
+
+        $(xsum_0, ysum_0, n_0)$ = cstats[$e_0$.id]\;
+        $(xsum_1, ysum_1, n_1)$ = cstats[$e_1$.id]\;
+
+        cstats[$e_0$.id] = \\
+            $(xsum_0 + xsum_1, ysum_0 + ysum_1, n_0 + n_1)$\;
+        merged[$e_1$.id] = $e_0$.id\;
+    }
+
+~\\
+    // Derive centroids
+    centroids = []\;
+    \For{(c, (xsum, ysum, n)) $\in$ cstats}{
+        centroids += $(xsum/n, ysum/n)$\;
+    }
+
+    \KwRet{centroids}
+    \caption{Merge centroids with overlapping EIA}\label{alg:merge_procedure}
+\end{algorithm}
