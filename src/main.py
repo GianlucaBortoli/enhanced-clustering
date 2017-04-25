@@ -40,16 +40,17 @@ def main():
     centroids = [(hx[0][x], hy[0][y]) for x in px for y in py]
 
     # Compute pic borders once for all
-    picbound = (min(xs), max(xs), min(ys), max(ys))
+    picbound = (int(min(xs) * 0.99), int(max(xs)*1.01),
+                int(min(ys)*0.99), int(max(ys)*1.01))
 
     # Top bar
     plot_cool_figure(xs, ys, hx, hy, centroids, px, py, args.dataset, picbound)
 
     j = 0
-    for i in xrange(args.dbb_maxiter):
+    for i in xrange(int(args.dbb_maxiter)):
         for (clusters, centroids, cstats) in kmeans(
                 points, centroids=centroids,
-                max_iter=args.kmeans_maxiter, sbs=True):
+                max_iter=int(args.kmeans_maxiter), sbs=True):
             log.info('DBB iter: %d. K-Means iter: %d', i, j)
             j += 1
 
