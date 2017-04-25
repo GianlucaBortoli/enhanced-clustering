@@ -23,7 +23,6 @@ to miss any potential centroid in the whole dataset\footnote{This approach produ
 over-estimation of the real number of centroids, including also possible false-negatives.}.
 % TODO: inserisci figura che fa vedere sia come si crea la griglia di picchi e della
 %       funzione di densità su tutti gli assi
-
 % TODO: pseudocodice di come creiamo questa griglia
 Moreover, among all the potential peaks created, only those which have at least one data
 item assigned after a run of the k-means are kept. This allows to discard all the 
@@ -33,9 +32,42 @@ Furthermore, it represents the refinement step for the algorithm.
 Finally, the number of items in this grid represents the value for the $k$ parameter.
 
 
-\subsection*{Initial centroids bootstrap}
+\subsection*{Centroids bootstrap}
 The other important phase is to find a good positioning of the $k$ initial centroids.
+The main idea behind this feature proceeds as follows:
+\begin{enumerate}
+    \item \label{step1} use the peak location as the one of the centroids.
+    \item build an ellipse around every centroid with the $(a,b)$ parameters (namely the x-axis
+        and the y-axis radius) applying the formula in Equation \ref{ellipse_params}.
+    \item merge all the ellipses that intersect with each other.
+    \item go to \ref{step1} until convergence or some other exit criterion is met.
+\end{enumerate}
 
+% TODO: pseudocodice delle procedure di creazione dell'ellisse e merging di ellissi
+% TODO: immagini che fa vedere uno step di merge che è andato bene e dimostra la nostra idea
+
+The formula (Equation \ref{ellipse_params}) to compute the heigth and the width of the ellipsis 
+is the key aspect of the proposed merging strategy.
+\begin{equation}
+\label{ellipse_params}
+    f(std, cdens) = ((std * 2 * 0.35) + (cdens * 0.7)) * 5
+\end{equation}
+Where:
+\begin{itemize}
+    \item $std$ is the standard deviation of the gaussian distribution underlying the cluster
+    \item $cdens$ is the value of the gaussian distribution Probability Distribution Function (PDF)
+        in the mean.
+\end{itemize}
+
+The reasoning behing the formula works as follows. Given the mean and the standard deviation ($std$)
+of a cluster, $std$ is doubled to take both the sides of the gaussian distribution into account.
+The 0.35 and the 0.7 values allows the density in the mean value of the gaussian distribution ($cdens$) 
+to influence more the size of the ellipse rather than its standard deviation ($std$). Finally, 5 is
+an overall scaling factor useful to allow the comparison of cluster with very different densities.
+
+A noteworthy aspect is that all the aforementioned factors used inside Equation \ref{ellipse_params} have
+been set after several tuning stages through empirical tests using many datasets with different
+cluster properties.
 
 
 \subsection*{Applications}
