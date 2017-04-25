@@ -10,6 +10,7 @@ from pylab import figure
 from scipy.interpolate import interp1d
 
 FIGSIZE = (20, 14)
+EXT = "png"
 
 
 def extract_dname(dname):
@@ -18,7 +19,7 @@ def extract_dname(dname):
 
 def plot_cool_figure(xs, ys, hx, hy, centroids, px, py, dname, picbound):
     # Whole figure
-    plt.figure(figsize=FIGSIZE)
+    plt.figure(figsize=FIGSIZE, frameon=False)
 
     # Extract boundaries
     minx, maxx, miny, maxy = picbound
@@ -55,7 +56,8 @@ def plot_cool_figure(xs, ys, hx, hy, centroids, px, py, dname, picbound):
     plt.grid()
 
     plt.tight_layout()
-    plt.savefig('img/%s_coolfig.png' % extract_dname(dname))
+    plt.savefig('img/%s_coolfig.%s' % (extract_dname(dname), EXT),
+                transparent=True, bbox_inches='tight',  pad_inches=0)
 
 
 def plot_density(mins, maxs, hist_x, hist_y, peaks, ax, rotation=0):
@@ -78,7 +80,7 @@ def plot_density(mins, maxs, hist_x, hist_y, peaks, ax, rotation=0):
 
 
 def plot_density_ellipses(xs, ys, ellipses, dname, i, picbound):
-    fig = figure(figsize=FIGSIZE)
+    fig = figure(figsize=FIGSIZE, frameon=False)
     ax = fig.add_subplot(111, aspect='equal')
 
     # The points
@@ -98,4 +100,5 @@ def plot_density_ellipses(xs, ys, ellipses, dname, i, picbound):
     ax.set_ylim(picbound[2:])
     ax.set_xlim(picbound[:2])
     plt.grid()
-    plt.savefig('img/%s_density_%d.png' % (extract_dname(dname), i))
+    plt.savefig('img/%s_density_%d.%s' % (extract_dname(dname), i, EXT),
+                transparent=True, bbox_inches='tight',  pad_inches=0)

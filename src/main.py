@@ -27,7 +27,7 @@ def main():
     args = parser.parse_args(sys.argv[1:])
 
     with open(args.dataset, 'rb') as dataset:
-        points = [map(float, row.strip().split()) for row in dataset]
+        points = [map(float, row.strip().split()[:2]) for row in dataset]
 
     # Maybe we shall wrap with `np.asarray`
     xs, ys = zip(*points)
