@@ -6,7 +6,7 @@ Clearly, the proposed approach has room for further improvements, both from
 the performance and the quality of results points of view. The big tradeoff
 lies in the shape used to represent the \emph{estimated influence area}. To
 achieve a perfect solution, an ellipse has to be used. Unfortunately, computing
-the exact intersection between two ellipsis is computationally very costly,
+the exact intersection between two ellipses is computationally very costly,
 requiring the resolution of a system of quadratic equations, where the number
 of equations in the system is linear in the number of features the data item has.
 For this reason, this work uses an approximation made of hundreds of segments
@@ -18,4 +18,9 @@ to say that using the approximated ellipse is the best choice. Probably, it is
 also the overall best choice, since clustering algorithms are mostly used as 
 a very first step in exploratory data analysis to retrieve some insights from
 the data. Therefore, a good approximation can be enough to proceed with
-further data processing.   
+further data processing.
+
+Another possible improvement is to better deal with the cases depicted in
+Figure~\ref{dataset3}. This can be enhenced focusing also on the local minima
+in the density functions of the single clusters in order to force them to stay 
+separate, rather than focusing only on the peaks for the merging procedure.
