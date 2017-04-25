@@ -56,14 +56,16 @@ def find_ellipses(centroids, clusters):
             continue
 
         # fitting data
-        ((xmean, xvar), (ymean, yvar)) = (norm.fit(xs), norm.fit(ys))
+        ((xmean, xstd), (ymean, ystd)) = (norm.fit(xs), norm.fit(ys))
 
         # compute density value (y) in mean point
-        dmx.append(normpdf([xmean], xmean, xvar))
-        dmy.append(normpdf([ymean], ymean, yvar))
+        probx = normpdf([xmean], xmean, xstd)
+        proby = normpdf([ymean], ymean, ystd)
+        dmx.append(probx)
+        dmy.append(proby)
 
         # Save clusters mean and std
-        c_density[c] = ((xmean, xvar), (ymean, yvar))
+        c_density[c] = ((xmean, xstd, probx), (ymean, ystd, proby))
 
     # Compute dataset mean and std in mean points
     xm = (np.nanmean(dmx), np.nanstd(dmx))
@@ -71,9 +73,10 @@ def find_ellipses(centroids, clusters):
 
     # Inject normalized density
     return list((c, (
-        (xmean, xvar, fabs(normpdf([xmean], xmean, xvar) - xm[0]) / xm[1]),
-        (ymean, yvar, fabs(normpdf([ymean], ymean, yvar) - ym[0]) / ym[1])
-    )) for (c, ((xmean, xvar), (ymean, yvar))) in c_density.iteritems())
+        (xmean, xstd, fabs(probx - xm[0]) / xm[1]),
+        (ymean, ystd, fabs(proby - ym[0]) / ym[1])
+    )) for (c, ((xmean, xstd, probx), (ymean, ystd, proby)))
+       in c_density.iteritems())
 
 
 def find_merges(ellipses):

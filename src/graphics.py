@@ -86,10 +86,10 @@ def plot_density_ellipses(xs, ys, ellipses, dname, i, picbound):
     # The points
     ax.scatter(xs, ys)
 
-    # The ellipsis
-    for (c, ((xmean, xvar, wx), (ymean, yvar, wy))) in ellipses:
+    # The ellipses
+    for (c, ((xmean, xstd, wx), (ymean, ystd, wy))) in ellipses:
         loc = (xmean, ymean)
-        w, h = get_EIA((c, ((xmean, xvar, wx), (ymean, yvar, wy))))
+        w, h = get_EIA((c, ((xmean, xstd, wx), (ymean, ystd, wy))))
         ellipse = Ellipse(xy=loc, width=w, height=h, color='black')
         ellipse.set_alpha(0.45)
         ellipse.set_facecolor(rnd.rand(3))
