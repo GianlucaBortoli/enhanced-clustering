@@ -1,12 +1,11 @@
 \label{experiments}
 Several dataset~\cite{ClusteringDatasets} are used in order to evaluate the correctness 
-of this algorithm. This is a very important phase to understand the potentialities of 
-this approach.
+of this solution. This phase is a very important in order to understand its potentialities.
 
 The assessment is performed using input data that have very different properties,
-from the one many small and dense cluster to another with a single very sparse cluster.
-In this way it is possible to see how the implementation behaves under very 
-different circumstances.
+starting from one with many small and dense cluster and ending with a dataset with few 
+but very sparse clusters. In this way it is possible to see how the implementation
+behaves under very different scenarios.
 
 \begin{figure}[t]
   \center{\includegraphics[width=0.5\textwidth]{a3_density_3.png}}
@@ -27,13 +26,11 @@ different circumstances.
 \end{figure}
 
 As it is possible to see from Figure~\ref{dataset1} and \ref{dataset2}, this approach
-succeeds in finding the right number of clusters and in positioning the centroids even
-though the dataset cannot be considered an "easy" one. 
+succeeds both in finding the right number of clusters and in positioning the centroids, even
+though the datasets cannot be considered "easy" ones for this kind of clustering
+algorithms. 
 Furthermore, Figure~\ref{dataset3} highlights how a dataset that visually can be 
-divided into few different shapes does not fit the capabilities of a partitioning
-algorithm like the k-means to find the clusters. This is due to the underlying distribution
-creating the points in the dataset that are far from being a smooth bell-curved shape.
-This particular example is clearly crafted to hinder the clustering algorithm being tested.
-
-However, the results displayed in this section clearly state that the approach developed
-in this work provides good and promising results.
+divided into few different-shaped regions does not fit the capabilities of a partitioning
+algorithm like the k-means. This is due to the distribution from which the points are
+sampled, which are far from being a smooth bell-curved shape.
+This particular example is clearly crafted to hinder the clustering algorithm under test.
