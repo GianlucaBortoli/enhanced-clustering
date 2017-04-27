@@ -1,21 +1,24 @@
-Data mining, the process of extracting meaningful information from a huge amount of data,
-like from the data deluge we are living today,
-is essential in the nowadays society and industry.
-The clustering is essential in data mining
-and the $k$-means is one of its most relevant representative: it is still widely used after more then 50 years from its invention.
+Data mining, which is the process of extracting meaningful information from huge amounts of data
+like the ones we are facing today,
+is essential in the society and the industry nowadays.
 
 
-The algorithm name itself reminds about its most notable weakness: the number of expected cluster, $k$, must be know in advance,
-furthermore, the quality of the solution is very sensitive to it and to the selection of the actual initial centroids.
+Clustering techniques are essenntial in this growing field
+and $k$-means is one of the most relevant representative; it is still widely used after more 
+then 50 years after its invention.
+The algorithm name itself reminds about its most notable weakness, namely the number of expected clusters 
+($k$) must be know in advance. Furthermore, the quality of the result is very sensitive not only to this
+parameter but also to the location of the initial centroids.
 
 
 In this paper we propose DBB, an algorithm capable of
-deterministically identify a suitable value for $k$
-as well as a proper set of bootstrap centroid.
-Give our technique to be a refinement based solution relaying only on the distribution
-of the partial density function of the dataset (and then of each cluster)
-it is applicable both in static, as bootstrapping phase, and in streaming contexts,
-applied every now and then to improve the $k$ estimation.
-Furthermore, event tough this idea is proposed as a $k$-means improvement,
-its in no way bounded to it: DBB can be applied in other partitional
-clustering algorithms to refine the local solution during the computation phase.
+deterministically identifing a suitable value for $k$
+as well as a proper set of bootstrap centroids.
+This work consists in a refinement-based solution relaying only on the distribution
+of the partial density function of the dataset (and then of each cluster).
+Hence, it is applicable both in static contexts (as bootstrapping phase) and also in streaming scenarios,
+where it is run every now and then to improve the $k$ estimation.
+Event tough this idea is proposed as a $k$-means improvement,
+it is not tied to it. DBB can be applied in any other partitional
+clustering algorithm to refine the partial solution during the
+computation phase.
