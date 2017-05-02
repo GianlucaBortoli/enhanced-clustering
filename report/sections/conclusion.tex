@@ -1,26 +1,14 @@
-This solution to the two most common problems in the partitional clustering
-algorithms provided promising and good results in most of the testing
-scenarios considered in Section~\ref{experiments}.
+This streaming, on-line and limited memory solution to the two most common 
+issues in the partitional clustering algorithms provided promising results.
+It has been tested against several datasets~\cite{ClusteringDatasets} with 
+very different characteristics in order to evaluate the overall performances that 
+can be achieved with this algorithm.
+Section~\ref{experiments} describes in detail some of the most important outcomes.
 
-Clearly, the proposed approach has room for further improvements, both from
-the performance and the quality of results points of view. The big tradeoff
-lies in the shape used to represent the \emph{estimated influence area}. To
-achieve a perfect solution, an ellipse has to be used. Unfortunately, computing
-the exact intersection between two ellipses is computationally very costly.
-It requires the resolution of a system of quadratic equations, where the number
-of equations is linear in the number of features a data item owns.
-For this reason, this work uses an approximation made of hundreds of segments
-to represent an ellipse. In the tests performed in Section~\ref{experiments},
-this approximation did not jeopardize the quality of results in any way with
-respect to the exact solution. On the other hand, a huge improvement in terms
-of performance is achieved. Thus, for the purpose of this work, it is possible
-to say that using the approximated ellipse is the best choice. Probably, it is
-also an overall best choice, since clustering algorithms are mostly used as 
-a first step in exploratory data analysis and data compression to retrieve 
-some insights from the data. Therefore, a good approximation can be enough 
-to proceed with further data processing.
+Moreover, a visual validation of the quality of the resulting clusters has 
+been performed in order to understand how this approach behaves under different
+circumstances and to uncover its possible limitations.
 
-Another possible improvement is to better deal with the cases depicted in
-Figure~\ref{dataset3}. This can be done exploiting the local minima
-in the density functions of every cluster in order to force them to stay 
-separate, rather than focusing only on the peaks for the merging procedure.
+Finally, this work discloses further optimizations that can be implemented to
+improve the algorithm's performance both from the quantitative and the qualitative
+points of view.

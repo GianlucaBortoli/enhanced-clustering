@@ -16,14 +16,14 @@ More formally, a \emph{peak detection} procedure is used to retrieve
 all the peaks (i.e. local maxima) in the density function for each feature\footnote{If
 the item considered is a point in an n-dimensional euclidean space, this is equivalent to
 finding all the local maxima in the density functions for each axis.} of the items in 
-the dataset. In this way, a \emph{peak} is defined as a data sample that is either larger than 
-its two neighboring samples.
+the dataset. In this way, a \emph{peak} is a data sample that is larger than 
+its two neighbour samples.
 This results in a list of peaks for each feature space and finally a n-dimensional grid
 matching every possible peack among all the features available is created
 (see Algorithm \ref{alg:grid_creation}).
 \input{pseudo/grid_creation.tex}
 
-As it is possible to notice from Figure~\ref{grid}, the black diamonds on the top and on
+As Figure~\ref{grid} shows, the black diamonds on the top and on
 the left sub-figures are the peaks found on the density distribution function among all
 the points in the dataset, the orange points in the central sub-figure represent the
 grid of all the potential centroids.
@@ -39,10 +39,11 @@ over-estimation of the real number of centroids, including possible false-negati
 
 Moreover, among all the potential peaks created, only those which have at least one data
 item assigned after a run of the k-means are kept. This allows to discard all the 
-false-positives that were found creating all the possible touples in all the feature spaces.
+false-positives that were found creating all the possible combinations in all the feature spaces.
 Furthermore, it represents the refinement step for the algorithm.
 
-Finally, the number of items in this grid represents the value for the $k$ parameter.
+Finally, the items in this grid are the initial centroids, representing both the value for the
+$k$ parameter (i.e. the number of items in this grid) and their coordinates.
 
 
 \subsection{Centroids bootstrap}
@@ -74,7 +75,7 @@ Where:
         in the mean.
 \end{itemize}
 
-To better understand the reasoning behind this formuls, a more precise explenation of its members
+To better understand the reasoning behind this formuls, a more precise explenation of its components
 is needed.\\
 Given the mean and the standard deviation of a cluster, 
 $\sigma$ is doubled to take both the sides of the gaussian distribution into account.
