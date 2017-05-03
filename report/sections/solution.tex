@@ -19,7 +19,7 @@ finding all the local maxima in the density functions for each axis.} of the ite
 the dataset. In this way, a \emph{peak} is a data sample that is larger than
 its two neighbour samples.
 This results in a list of peaks for each feature space and finally a n-dimensional grid
-matching every possible peack among all the features available is created
+matching every possible peak among all the features available is created
 (see Algorithm \ref{alg:grid_creation}).
 \input{pseudo/grid_creation.tex}
 
@@ -46,7 +46,7 @@ Finally, the items in this grid are the initial centroids, representing both the
 $k$ parameter (i.e. the number of items in this grid) and their coordinates.
 
 
-\subsection{Centroids bootstrap}
+\subsection{Centroids refinement}
 The other important phase is to find a good positioning of the $k$ initial centroids.
 The main idea behind this feature is the following:
 \begin{enumerate}
