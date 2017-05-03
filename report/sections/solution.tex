@@ -1,4 +1,4 @@
-This work consists in solving the two main problems of "k-means"-like 
+This work consists in solving the two main problems of ``k-means''-like
 algorithms described in Section \ref{related} and \ref{problem_definition}:
 choosing the $k$ parameter and placing the $k$ initial centroids.
 The only assumption is that the dataset is generated from one or more gaussian
@@ -6,17 +6,17 @@ disitributions.
 
 
 \subsection{The choice of $k$}
-The most common scenario does not involve a domain expert. As a matter of fact, 
+The most common scenario does not involve a domain expert. As a matter of fact,
 no prior knowledge can be used to guess a proper and reasonable value for $k$.\\
 The main idea behind the solution proposed in this work is that of exploiting global
 and local density analysis to get an initial estimate of the number of clusters
 in the data.
 
-More formally, a \emph{peak detection} procedure is used to retrieve 
+More formally, a \emph{peak detection} procedure is used to retrieve
 all the peaks (i.e. local maxima) in the density function for each feature\footnote{If
 the item considered is a point in an n-dimensional euclidean space, this is equivalent to
-finding all the local maxima in the density functions for each axis.} of the items in 
-the dataset. In this way, a \emph{peak} is a data sample that is larger than 
+finding all the local maxima in the density functions for each axis.} of the items in
+the dataset. In this way, a \emph{peak} is a data sample that is larger than
 its two neighbour samples.
 This results in a list of peaks for each feature space and finally a n-dimensional grid
 matching every possible peack among all the features available is created
@@ -25,11 +25,11 @@ matching every possible peack among all the features available is created
 
 As Figure~\ref{grid} shows, the black diamonds on the top and on
 the left sub-figures are the peaks found on the density distribution function among all
-the points in the dataset, the orange points in the central sub-figure represent the
+the points in the dataset, while the orange points in the central sub-figure represent the
 grid of all the potential centroids.
 In this way, the worst-case scenario is taken into account, allowing this approach not
-to miss any potential centroid in the whole dataset\footnote{This approach produces an 
-over-estimation of the real number of centroids, including possible false-negatives.}.
+to miss any potential centroid in the whole dataset\footnote{This approach produces an
+over-estimation of the real number of centroids, introducing possible false-negatives.}.
 
 \begin{figure*}
   \center{\includegraphics[width=0.7\textwidth]{unbalance_rescaled_coolfig.png}}
@@ -38,7 +38,7 @@ over-estimation of the real number of centroids, including possible false-negati
 \end{figure*}
 
 Moreover, among all the potential peaks created, only those which have at least one data
-item assigned after a run of the k-means are kept. This allows to discard all the 
+item assigned after a run of the k-means are kept. This allows to discard all the
 false-positives that were found creating all the possible combinations in all the feature spaces.
 Furthermore, it represents the refinement step for the algorithm.
 
@@ -50,11 +50,11 @@ $k$ parameter (i.e. the number of items in this grid) and their coordinates.
 The other important phase is to find a good positioning of the $k$ initial centroids.
 The main idea behind this feature is the following:
 \begin{enumerate}
-    \item \label{step1} use the peak location as the one of the centroids.
+    \item \label{step1} use peaks' locations as the ones of the centroids.
     \item build an ellipse around every centroid with the $(a,b)$ parameters (namely the x-axis
         and the y-axis radii) applying the formula in Equation \ref{ellipse_params} (see
         Algorithm~\ref{alg:find_ellipses}).
-    \item merge all the ellipses that intersect with each other (see 
+    \item merge all the ellipses that intersect with each other (see
         Algorithm~\ref{alg:merge_procedure}).
     \item go to \ref{step1} until convergence or some other exit criterion is met.
 \end{enumerate}
@@ -62,7 +62,7 @@ The main idea behind this feature is the following:
 \input{pseudo/find_ellipses.tex}
 \input{pseudo/merge_procedure.tex}
 
-The formula described in Equation~\ref{ellipse_params} computing the heigth and the width of 
+The formula described in Equation~\ref{ellipse_params} computing the heigth and the width of
 the ellipses is the key aspect of the proposed merging strategy.
 \begin{equation}
 \label{ellipse_params}
@@ -77,14 +77,14 @@ Where:
 
 To better understand the reasoning behind this formuls, a more precise explenation of its components
 is needed.\\
-Given the mean and the standard deviation of a cluster, 
+Given the mean and the standard deviation of a cluster,
 $\sigma$ is doubled to take both the sides of the gaussian distribution into account.
-The 0.35 and the 0.7 values allow the density in the mean value of the gaussian distribution ($cdens$) 
+The 0.35 and the 0.7 values allow the density in the mean value of the gaussian distribution ($cdens$)
 to influence more the size of the ellipse rather than its standard deviation ($\sigma$). Finally, 5 is
 an overall scaling factor useful to allow the comparison of cluster with very different densities.
 
 From an higher point of view, Equation \ref{ellipse_params} represents the \emph{Estimated Influence Area}
-(EIA) for every cluster. As the name suggests, this depicts (also visually) the area of influence a 
+(EIA) for each cluster. As the name suggests, this depicts (also visually) the area of influence a
 cluster has on all the others.\\
 As it is possible to see from Figure~\ref{start}, the ellipses represent all the initial
 \emph{EIAs} starting from all the potential centroids after discarding
@@ -96,8 +96,8 @@ The Figures~\ref{start}, \ref{middle} and \ref{end} depicts the trend and the po
 
 Moreover, as it is possible to notice from Figure \ref{end}, the approach described in this
 section started with many potential centroids (see Figure~\ref{start}) and after a
-few iterations converged finding the 8 clusters in the dataset successfully 
-(see Figure~\ref{end}). 
+few iterations converged finding the 8 clusters in the dataset successfully
+(see Figure~\ref{end}).
 
 \begin{figure}[t]
   \center{\includegraphics[width=0.5\textwidth]{unbalance_rescaled_density_0.png}}
@@ -130,22 +130,22 @@ following information:
 In a 2-dimensional euclidean space, this metadata result in a list containing the the sum of all the
 points' coordinates among the 2 axes and the number of points within the cluster taken into consideration.
 This structure contains the least possible information to compute the centroid's coordinates as the
-barycenter of that particolar cluster.  
+barycenter of that particolar cluster.
 
-Finally, this merging strategy enables all the \emph{Data Mining Desiderata} mentioned in Section 
-\ref{intro}. It makes use of sufficient statistics to internally represent every cluster, hence 
+Finally, this merging strategy enables all the \emph{Data Mining Desiderata} mentioned in Section
+\ref{intro}. It makes use of sufficient statistics to internally represent every cluster, hence
 requiring an overall amount of memory that is linear in the number of peaks ($O(k)$, \emph{limited memory}
 property). Furthermore, the \emph{online} behaviour is guaranteed by default, since the centroid
 bootstrap and merging procedure always return a solution at any point in time. Finally, it allows
 to deal with \emph{straming} data thanks both to its linear memory consumption and to its ability to
-work with chunks of data by default, propagating all the sufficient statistics needed to update the 
+work with chunks of data by default, propagating all the sufficient statistics needed to update the
 centroids from one iteration to another. This also guarantees that if the computation is stopped
 it can be restarted without the need to re-process everything from scratch.
 
 
 \subsection{Applications}
 The approach presented in this work can have two main applications. On the one hand,
-this procedure can be used as a bootstrapping phase for a  "k-means"-like algorithm. 
+this procedure can be used as a bootstrapping phase for a  ``k-means''-like algorithm.
 On the other, it can be integrated with other partitional clustering algorithms to
 refine the local solution during the computation phase, allowing the system as a
 whole to find increasingly better clusters.

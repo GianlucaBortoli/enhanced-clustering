@@ -35,14 +35,15 @@ As a result even the medical~\cite{siless2013comparison}, the mechanical
 engineering~\cite{wilding2011clustering} and the mobile networks~\cite{cheng2009stability}
 literatures features different studies that address this particular challenge
 suggesting highly specialized distance functions.
+
 %% Inter/Intra cluster distance measure
 Once the proper metric is identified, the following huge influencing factors
 are the mathematical definitions of ``intra-cluster'' and ``inter-cluster''
 distances. They vary a lot in the different implementation leading to
 completely different clustering configurations.
-For example, when performing agglomerative clustering three methods
-are widely used to define the distance between two clusters:
-average, minimum, and maximum distance.
+For example, three methods are widely used when performing agglomerative
+clustering to define the distance between two clusters:
+the average, the minimum, and the maximum distance.
 The average approach uses the barycenters, while the minimum (maximum)
 relies upon the minimal (maximal) distance between any two points
 belonging to a different clusters.
@@ -54,7 +55,7 @@ of the number of clusters the dataset has to be divided into.
 
 The original k-means does not address this problem at all. Thus, some heuristic has to
 be applied. One possibility is to have a deep knowledge of the structure underlying the
-dataset, having an idea of the target number of groups. On the other hand, especially 
+dataset, having an idea of the target number of groups. On the other hand, especially
 in exploratory data analysis, this value cannot be known in advance.
 Hence, the most common solution is to run the algorithm with increasing values of $k$ and
 finally keeping the parameter that produces the best-quality clusters.
@@ -65,17 +66,17 @@ instruct the algorithm to collapse entities that are actually very far from each
 
 
 \subsection*{Positioning the initial centroids}
-Given that an optimal value for $k$ is found, the other big problem is how to position the $k$ 
+Given that an optimal value for $k$ is found, the other big problem is how to position the $k$
 initial centroids.
 
-Given enough time, the k-means algorithm will always converge. However it may be to a local 
+Given enough time, the k-means algorithm will always converge. However it may be to a local
 minimum. This is highly dependent on the initialization of the centroids. The boostrapping
-phase can be addressed in various ways. For example, the 
-\emph{scikit-learn}\footnote{http://scikit-learn.org} Python library 
+phase can be addressed in various ways. For example, the
+\emph{scikit-learn}\footnote{http://scikit-learn.org} Python library
 uses an approach that positions the initial centroids to be (generally) distant
-from each other by default. This procedure provides provably better results than using a random 
+from each other by default. This procedure provides provably better results than using a random
 one~\cite{arthur2007k}.
 
-Using a proper and efficient boostrapping heuristic is very important, since misplacing 
-the initial centroids does not allow the algorithm to find the real cluster underlying
+Using a proper and efficient boostrapping heuristic is very important, since misplacing
+the initial centroids does not allow the algorithm to find the real clusters underlying
 the data.
